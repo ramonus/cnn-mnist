@@ -57,7 +57,7 @@ def conv_nn():
     y_train = keras.utils.to_categorical(y_train,10)
     y_test = keras.utils.to_categorical(y_test, 10)
     c.compile(loss=keras.losses.binary_crossentropy, optimizer=optimizer, metrics=['accuracy'])
-    epochs = 10
+    epochs = 1
     batch_size = 100
     hist = Hist()
     c.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test), callbacks=[hist])
@@ -83,38 +83,6 @@ def conv_nn():
     ax3.grid()
     ax3.legend()
 
-    plt.show()
-def fcnn():
-    m1 = fully_connected_relu()
-    m2 = fully_connected_LeReLU()
-    opt = keras.optimizers.RMSprop(lr=0.1)
-    (x_train, y_train),(x_test, y_test) = mnist.load_data()
-    
-    y_train = keras.utils.to_categorical(y_train,10)
-    y_test = keras.utils.to_categorical(y_test, 10)
-    
-    m1.compile(loss=keras.losses.binary_crossentropy, optimizer=opt, metrics=['accuracy'])
-    m2.compile(loss=keras.losses.binary_crossentropy, optimizer=opt, metrics=['accuracy'])
-
-    epochs = 1
-    batch_size = 100
-    h1 = Hist()
-    h2 = Hist()
-    m1.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test), callbacks=[h1])
-    m2.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test), callbacks=[h2])
-    
-    f, (ax1, ax2) = plt.subplots(1,2)
-    f.suptitle("Accuracy and loss logs")
-    ax1.set_title("FC_ReLU")
-    ax1.plot(h1.acc,'b',label='acc')
-    ax1.plot(h1.loss,'r',label='loss')
-    ax1.grid()
-    ax1.legend()
-    ax2.set_title("FC_LeReLU")
-    ax2.plot(h2.acc, 'b', label='acc')
-    ax2.plot(h2.loss, 'r', label='loss')
-    ax2.grid()
-    ax2.legend()
     plt.show()
 
 if __name__=="__main__":
